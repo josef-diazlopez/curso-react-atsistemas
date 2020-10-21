@@ -1,6 +1,7 @@
 import React from "react";
 import "./Card.css";
 import PropTypes from "prop-types";
+import { FooterSocial } from "./FooterSocial/FooterSocial";
 
 export const Card = ({ name, children }) => {
   return (
@@ -11,7 +12,7 @@ export const Card = ({ name, children }) => {
       </div>
       <div className="card-body">{children}</div>
       <div className="card-footer">
-        <p>redes sociales</p>
+        <FooterSocial></FooterSocial>
       </div>
     </div>
   );

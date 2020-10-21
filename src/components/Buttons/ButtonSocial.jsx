@@ -20,13 +20,17 @@ const ICONOS = {
 
 
 export const ButtonSocial = ({ icon }) => {
-  const social = ICONOS[icon] || <FaBehance></FaBehance>;
-  console.log(social, icon);
   return (
-    social
+    <div className="socialIcon">
+      {ICONOS[icon]}
+    </div>
   );
 };
 
 ButtonSocial.propTypes = {
   icon: PropTypes.oneOf([BEHANCE, FACEBOOK, TWITTER, LINKEDIN])
 };
+
+ButtonSocial.defaultProps = {
+  icon: BEHANCE
+}
