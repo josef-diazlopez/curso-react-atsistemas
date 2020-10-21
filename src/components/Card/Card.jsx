@@ -1,14 +1,15 @@
 import React from "react"
 import "./Card.css";
+import PropTypes from 'prop-types'
 
-export const Card = () =>{
+export const Card = ({name}) =>{
     return(
         <div className="card">
             <div className="float-btn">
                 boton flotante
             </div>
             <div className="card-header">
-                <h1>Jose</h1>
+                <h1>{name}</h1>
             </div>
             <div className="card-body">
                 <p>Cuerpo</p>
@@ -18,4 +19,8 @@ export const Card = () =>{
             </div>
         </div>
     )
+}
+
+Card.propTypes = {
+name: PropTypes.string.isRequired
 }
