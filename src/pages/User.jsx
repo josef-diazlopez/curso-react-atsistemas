@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { withRouter } from 'react-router';
 
 const API_USER = 'https://reqres.in/api/users/';
 
@@ -42,14 +43,15 @@ export class User extends Component {
     };
 
     componentDidMount() {
-        this.getUsers();
+        this.getUsers(this.props.match.params.id);
+        
     }
 
     /**
      * get users from api
      */
-    getUsers = () => {
-        axios.get(`${API_USER}${this.state.id}`)
+    getUsers = (id) => {
+        axios.get(`${API_USER}${id}`)
             .then((response) => {
                 this.setState(
                     {
@@ -78,3 +80,5 @@ export class User extends Component {
         }
     }
 }
+
+export const UserRouter =  withRouter(User);
