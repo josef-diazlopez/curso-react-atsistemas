@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card } from './../components/Card/Card'
 import { Body } from './../components/Card/Body/Body'
-import useGetUsers from '../components/hooks/useCallUsers'
+import useGetUsers from '../components/hooks/useGetUsers'
 
 export const Users = () => {
     const users = useGetUsers()

@@ -1,14 +1,13 @@
-import React from "react";
-import "./App.css";
-import { Users } from "./pages/Users";
-
+import React from 'react'
+import './App.css'
+import { User } from './pages/User'
 
 function App() {
-  return (
-    <div className="App">
-      <Users></Users>
-    </div>
-  );
+    return (
+        <div className="App">
+            <User></User>
+        </div>
+    )
 }
 
-export default App;
+export default App
