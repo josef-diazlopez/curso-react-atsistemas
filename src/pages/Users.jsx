@@ -1,22 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useGetUsers } from '../Hooks/useGetUsers';
 import PropTypes from 'prop-types';
 import { Card } from './../components/Card/Card';
 import { Body } from './../components/Card/Body/Body';
-import axios from 'axios';
 
-const API_USERS = 'https://reqres.in/api/users';
-
-export const Users = ({  }) => {
-    const [data, setData] = useState([]);
-    useEffect(() => {
-        axios.get(API_USERS)
-            .then((response) => {
-                setData(response.data.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            })
-    },[])
+export const Users = ({ }) => {
+    const data = useGetUsers();
     return (
         <header className="App-header">
         {
