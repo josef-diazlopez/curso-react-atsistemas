@@ -2,34 +2,25 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from './../components/Card/Card';
 import { Body } from './../components/Card/Body/Body';
-import axios from 'axios';
 
-const API_USERS = 'https://reqres.in/api/users';
+import { useGetUsers } from '../hooks/users/useGetUsers';
 
-export const Users = ({  }) => {
-    const [data, setData] = useState([]);
-    useEffect(() => {
-        axios.get(API_USERS)
-            .then((response) => {
-                setData(response.data.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            })
-    },[])
+export const Users = ({ }) => {
+    const data = useGetUsers();
     return (
         <header className="App-header">
-        {
-            data.map((user) => (
-                <Card name={`${user.first_name} ${user.last_name}`} key={user.id}>
-                    <Body texts={[user.email]}></Body>
-                </Card>
-            ))
-        }
+            {
+                data.map((user) => (
+                    <Card name={`${user.first_name} ${user.last_name}`} key={user.id}>
+                        <Body texts={[user.email]}></Body>
+                    </Card>
+                ))
+            }
 
-      </header>
+        </header>
     );
 };
+
 
 Users.propTypes = {
 
@@ -38,6 +29,5 @@ Users.propTypes = {
 Users.defaultProps = {
 
 }
-
 
 
