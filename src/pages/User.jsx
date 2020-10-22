@@ -1,6 +1,7 @@
 import React, { Component, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 const API_USERS = "https://reqres.in/api/users/";
 
@@ -53,7 +54,7 @@ export class User extends Component {
 
   componentDidMount() {
     // this.loadUser(this.state.currentId);
-    this.loadUser(1);
+    this.loadUser(this.props.match?.params?.id || 1);
   }
 
   loadUser(id) {
@@ -78,3 +79,5 @@ export class User extends Component {
     }
   }
 }
+
+export const UserRoute = withRouter(User);
