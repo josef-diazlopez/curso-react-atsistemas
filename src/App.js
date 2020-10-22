@@ -1,7 +1,7 @@
 import React from 'react';
-import "./App.css";
-import { Users } from "./pages/Users";
-import { User } from "./pages/User";
+import './App.css';
+import { Users } from './pages/Users';
+import { User } from './pages/User';
 
 
 

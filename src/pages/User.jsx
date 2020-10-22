@@ -21,7 +21,7 @@ export class User extends Component {
                 <div ref={this.listUser} onClick={() => { this.setState({ counter: this.state.counter + 1 }) }}>{this.state.id}</div>
                 <div>{this.state.email}</div>
                 <div>{this.state.name}</div>
-                <div>{this.state.avatar}</div>
+                <img src={this.state.avatar}></img>
                 <div>{this.state.company}</div>
                 <div>{this.state.url}</div>
             </>
