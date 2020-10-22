@@ -1,12 +1,14 @@
 import React from "react";
 import axios from "axios";
+import { useParams, withRouter } from "react-router"; 
 
 class User extends React.Component {
   constructor(props) {
+    console.log(props);
     super(props);
     this.state = {
       user: {},
-      selectedId: 1
+      selectedId: undefined
     };
     this.listUser = React.createRef()
   }
@@ -14,12 +16,12 @@ class User extends React.Component {
     return (
       <div ref={this.listUser}>
         <button
-          onClick={() => this.setState((state,props) => ({selectedId: state.selectedId + 1}))}
+       //   onClick={() => this.setState((state,props) => ({selectedId: state.selectedId + 1}))}
         >
           {this.state?.user?.id}
         </button>
         <p>Nombre: {this.state?.user?.first_name}</p>
-        <p>Apellido: {this.state?.user?.surname}</p>
+        <p>Apellido: {this.state?.user?.last_name}</p>
         <p>Email: {this.state?.user?.email}</p>
         <img
           alt={`img ${this.state?.user?.first_name}`}
@@ -42,6 +44,9 @@ class User extends React.Component {
 }
 
   componentDidMount() {
+    this.setState((state, props) => ({
+      selectedId: this.props.match?.params?.id || 1
+    }))
     this.getUser();
   }
 
@@ -52,4 +57,4 @@ class User extends React.Component {
   }
 }
 
-export default User;
+export const UserRouter = withRouter(User)
