@@ -1,45 +1,32 @@
+
 import React, { Component, useState, useEffect } from "react";
-import PropTypes from 'prop-types';
 import axios from 'axios';
+import { withRouter } from "react-router";
 
 const API_USER = 'https://reqres.in/api/users/';
 
-//Componente de clase básico
 export class User extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            counter: 1,
+            id: props.match.params.id || 0,
         }
-        this.listUser = React.createRef();
     }
 
-    render() {
-
-        return (
-            <>
-                <div ref={this.listUser} onClick={() => { this.setState({ counter: this.state.counter + 1 }) }}>{this.state.id}</div>
-                <div>{this.state.email}</div>
-                <div>{this.state.name}</div>
-                <img src={this.state.avatar}></img>
-                <div>{this.state.company}</div>
-                <div>{this.state.url}</div>
-            </>
-        );
-
-    }
 
     componentDidMount() {
-        this.getUser();
+        this.getUser(this.props.match.params.id);
+
     }
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.counter !== this.state.counter) {
-            this.getUser();
+        if (prevState.id !== this.state.id) {
+            this.getUser(this.state.id);
         }
     }
 
-    getUser = () => {
-        axios.get(API_USER + this.state.counter)
+    getUser = (id) => {
+        axios.get(API_USER + id)
             .then((response) => {
                 console.log(response)
                 this.setState(
@@ -58,5 +45,25 @@ export class User extends Component {
             });
     }
 
+    goBack = () => {
+        this.props.history.goBack()
+    }
 
+    render() {
+        console.log(this.props)
+        return (
+            <>
+                <div onClick={() => { this.setState({ id: this.state.id + 1 }) }}>{this.state.id}</div>
+                <div>{this.state.email}</div>
+                <div>{this.state.name}</div>
+                <img src={this.state.avatar}></img>
+                <div>{this.state.company}</div>
+                <div>{this.state.url}</div>
+                <div onClick={this.goBack}><b>Ir atrás</b></div>
+            </>
+        );
+
+    }
 }
+
+export const UserRoute = withRouter(User);
