@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { withRouter } from "react-router";
 
 const API_USER = 'https://reqres.in/api/users/';
 
@@ -22,6 +23,9 @@ constructor(props){
     }
 }
 render(){
+    console.log(this.props);
+    console.log(this.props.match.params.id);
+   
     return (
     <>
     <div onClick={()=>this.setState((state,props)=>({dato: this.state.user.id+1}))} >{this.state.user.id}</div>
@@ -48,9 +52,20 @@ getUser =() =>{
 }
 
 componentDidMount(){
+    this.setState({dato:this.props.match.params.id})
    this.getUser();
 }
 
 }
 
-export default User;
+User.propTypes = {
+
+}
+
+User.defaultProps = {
+
+}
+
+
+const UserRouter = withRouter(User);
+export default UserRouter;
