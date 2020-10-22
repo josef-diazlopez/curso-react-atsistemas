@@ -9,7 +9,7 @@ export const useGetUsers = () => {
     axios
       .get(API_USERS)
       .then((response) => {
-        setUsers(response.data.data);
+        response?.data?.data && setUsers(response.data.data);
       })
       .catch((error) => {
         //TODO:
