@@ -36,8 +36,7 @@ export class User extends Component {
                     </button>
                 </div>
                 <div>Company: {this.state.company}</div>
-                <div>Company-Url: {this.state.url}</div>
-                <div>Company-Text: {this.state.text}</div>
+                <div>Company-Text: {this.state.url}</div>
             </>
         )
     };
