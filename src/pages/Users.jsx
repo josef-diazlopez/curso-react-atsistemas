@@ -1,12 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Card } from './../components/Card/Card'
 import { Body } from './../components/Card/Body/Body'
 import useGetUsers from '../components/hooks/useCallUsers'
 
 export const Users = () => {
     const users = useGetUsers()
-
     return (
         <header className="App-header">
             {users.map((user) => (
