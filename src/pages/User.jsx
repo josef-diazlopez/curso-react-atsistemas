@@ -22,7 +22,11 @@ class User extends React.Component {
         </button>
         <p>Nombre: {this.state?.user?.first_name}</p>
         <p>Apellido: {this.state?.user?.last_name}</p>
-        <p>Email: {this.state?.user?.email}</p>
+        <p onClick={() => {
+          if(window.confirm('¿Quiere navegar al detalle del usuario?')){
+            this.props.history.push(`/`)}
+        }}
+        >Email: {this.state?.user?.email}</p>
         <img
           alt={`img ${this.state?.user?.first_name}`}
           src={this.state?.user?.avatar}
