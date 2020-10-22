@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
-
 const API_USERS = 'https://reqres.in/api/users';
 
 export const useGetUsers = () => {
@@ -18,7 +17,5 @@ export const useGetUsers = () => {
           console.log(error)
       })
     }, []);
-    return users;
+    return users || [];
 }
-
-export default useGetUsers;
