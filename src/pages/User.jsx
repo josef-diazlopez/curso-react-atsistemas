@@ -1,7 +1,9 @@
 import React from 'react'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 import { Card } from './../components/Card/Card'
-import { Body } from './../components/Card/Body/Body'
+import Body from './../components/Card/Body/Body'
+import { withRouter } from 'react-router'
 
 export class User extends React.Component {
     constructor(props) {
@@ -9,20 +11,23 @@ export class User extends React.Component {
         this.state = {
             user: {},
             ad: {},
-            counter: 1,
+            id: props.match.params.id || 0,
         }
+        this.listUser = React.createRef()
     }
+
     componentDidMount() {
         this.getUser()
+        // this.listUser.current
     }
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.counter !== this.state.counter) {
+        if (prevState.id !== this.state.id) {
             this.getUser()
         }
     }
     getUser = () => {
         axios
-            .get('https://reqres.in/api/users/' + this.state.counter)
+            .get('https://reqres.in/api/users/' + this.state.id)
             .then((response) => {
                 this.setState({
                     user: response.data.data,
@@ -35,37 +40,10 @@ export class User extends React.Component {
     }
     render() {
         console.log('this.state', this.state)
-        const { user, ad, counter } = this.state
+        console.log('this.props', this.props)
+        const { user, ad } = this.state
         return (
             <header className="App-header">
-                <div style={{ display: 'flex' }}>
-                    <h1
-                        onClick={() =>
-                            this.state.counter > 1 &&
-                            this.setState({
-                                counter: this.state.counter - 1,
-                            })
-                        }
-                    >
-                        {'<'}
-                    </h1>
-                    <h1 style={{ marginLeft: '30px', marginRight: '30px' }}>
-                        {' '}
-                        ID: {counter}
-                    </h1>
-                    <h1
-                        onClick={() =>
-                            this.setState({ counter: this.state.counter + 1 })
-                        }
-                    >
-                        {'>'}
-                    </h1>
-                </div>
-                {counter > 1 && (
-                    <h3 onClick={() => this.setState({ counter: 1 })}>
-                        Back to George
-                    </h3>
-                )}
                 <Card
                     name={`${user.first_name} ${user.last_name}`}
                     key={user.id}
@@ -80,3 +58,5 @@ export class User extends React.Component {
         )
     }
 }
+
+export const UserRoute = withRouter(User)

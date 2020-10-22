@@ -1,5 +1,11 @@
-.card{
+.card {
     background-color: aqua;
     padding: 20px 50px;
     border-radius: 5rem;
+    margin: 5%;
+}
+
+.card-footer {
+    justify-content: center;
+    display: flex;
 }
