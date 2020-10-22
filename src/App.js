@@ -13,6 +13,11 @@ function App() {
                     <Route path="/" exact>
                         <Users />
                     </Route>
+                    <Switch>
+                        <Route path="/user2/:id">
+                            <Users />
+                        </Route>
+                    </Switch>
                     <Route path="/user/:id">
                         <UserRoute />
                     </Route>
