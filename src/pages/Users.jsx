@@ -3,20 +3,10 @@ import PropTypes from 'prop-types';
 import { Card } from './../components/Card/Card';
 import { Body } from './../components/Card/Body/Body';
 import axios from 'axios';
-
-const API_USERS = 'https://reqres.in/api/users';
+import { useGetUsers } from '../components/hooks/users/useGetUsers';
 
 export const Users = ({  }) => {
-    const [data, setData] = useState([]);
-    useEffect(() => {
-        axios.get(API_USERS)
-            .then((response) => {
-                setData(response.data.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            })
-    },[])
+    const data = useGetUsers();
     return (
         <header className="App-header">
         {
