@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useParams, withRouter } from "react-router"; 
+import { withRouter } from "react-router"; 
 
 class User extends React.Component {
   constructor(props) {
