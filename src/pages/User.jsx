@@ -1,4 +1,5 @@
 import React from "react";
+// eslint-disable-next-line no-unused-vars
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -8,24 +9,28 @@ export class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.listUser = React.createRef()
   }
   render() {
     return (
-      <>
-        <button onClick={() => this.getUser()}>{this.state?.data?.id}</button>
-        <p>Email {this.state?.data?.email}</p>
-        <p>First Name {this.state?.data?.first_name}</p>
-      </>
+      <div ref={this.listUser}>
+        <button
+          onClick={() => this.getUser(`${API_USERS}${this.state?.data?.id + 1}`)}
+        >
+          {this.state?.data?.id}
+        </button>
+        <p>First Name: {this.state?.data?.first_name}</p>
+        <p>Surname: {this.state?.data?.surname}</p>
+        <p>Email: {this.state?.data?.email}</p>
+        <img
+          alt={`img ${this.state?.data?.first_name}`}
+          src={this.state?.data?.avatar}
+        ></img>
+      </div>
     );
   }
 
-  getUser() {
-    let API_ID_USER = "";
-    if (this.state?.data?.id) {
-      API_ID_USER = `${API_USERS}${this.state.data.id + 1}`;
-    } else {
-      API_ID_USER = `${API_USERS}1`;
-    }
+  getUser(API_ID_USER = `${API_USERS}1`) {
     axios
       .get(API_ID_USER)
       .then((response) => {
@@ -43,5 +48,6 @@ export class User extends React.Component {
 
   componentDidMount() {
     this.getUser();
+    console.log(this.listUser.current)
   }
 }
