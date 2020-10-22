@@ -15,7 +15,7 @@ export const Users = () => {
   return (
     <header className="App-header">
       {users.map((user) => (
-        <Card name={`${user.first_name} ${user.last_name}`} key={user.id}>
+        <Card name={`${user.first_name} ${user.last_name}`} id={user.id} key={user.id}>
           <Body texts={[user.email]}></Body>
         </Card>
       ))}
