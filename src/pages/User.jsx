@@ -7,9 +7,9 @@ const API_USERS = "https://reqres.in/api/users/";
 export class User extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   currentId: 1,
-    // };
+    this.state = {
+      //   currentId: 1,
+    };
   }
 
   render() {
