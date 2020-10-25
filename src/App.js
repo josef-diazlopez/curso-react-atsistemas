@@ -13,7 +13,7 @@ function App() {
       {/* <User></User> */}
       <Router>
         <Switch>
-          <Route exact path="/">
+          <Route path="/">
             <Users></Users>
           </Route>
 
@@ -23,10 +23,6 @@ function App() {
 
           <Route path="/user/editar/:id">
             <FormRoute></FormRoute>
-          </Route>
-
-          <Route path="/user2/:id">
-            <UserRoute></UserRoute>
           </Route>
 
           <Route path="/user/:id">

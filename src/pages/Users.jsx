@@ -11,11 +11,9 @@ export const Users = () => {
 
   return (
     <header className="App-header">
-      <Switch>
-        <Route path="/user2/:id">
-          <UserRoute></UserRoute>
-        </Route>
-      </Switch>
+      <Route path="/user2/:id">
+        <UserRoute></UserRoute>
+      </Route>
 
       <Link to="/user/alta">Alta</Link>
 
