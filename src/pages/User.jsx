@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import PropTypes from "prop-types";
 import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const API_USERS = "https://reqres.in/api/users/";
 
@@ -22,7 +23,9 @@ export class User extends Component {
 
     return (
       <>
-        <Link to={`/user/editar/${data?.id}`}>Editar</Link>
+        <Link to={`/user/editar/${data?.id}`}>
+          <Button variant="secondary">Editar usuario</Button>
+        </Link>
 
         <div>
           <img src={data?.avatar} alt="Avatar"></img>

@@ -5,28 +5,49 @@ import { Body } from "./../components/Card/Body/Body";
 import { useGetUsers } from "../hooks/users/useGetUsers";
 import { Route, Link } from "react-router-dom";
 import { UserRoute } from "./User";
+import {
+  CardColumns,
+  Container,
+  Row,
+  Col,
+  Button,
+  Navbar,
+} from "react-bootstrap";
 
 export const Users = () => {
   const data = useGetUsers();
 
   return (
-    <header className="App-header">
-      <Route path="/user2/:id">
-        <UserRoute></UserRoute>
-      </Route>
+    <Container>
+      <Navbar>
+        <Link to="/user/alta">
+          <Button variant="secondary">Crear usuario</Button>
+        </Link>
+      </Navbar>
 
-      <Link to="/user/alta">Alta</Link>
+      <Row>
+        <Col xs={10} md={4}>
+          <Col>
+            {data.map((user) => (
+              <Card
+                name={`${user.first_name} ${user.last_name}`}
+                id={user.id}
+                key={user.id}
+                img={user.avatar}
+              >
+                <Body texts={[user.email]}></Body>
+              </Card>
+            ))}
+          </Col>
+        </Col>
 
-      {data.map((user) => (
-        <Card
-          name={`${user.first_name} ${user.last_name}`}
-          id={user.id}
-          key={user.id}
-        >
-          <Body texts={[user.email]}></Body>
-        </Card>
-      ))}
-    </header>
+        <Col xs={10} md={8}>
+          <Route path="/user2/:id">
+            <UserRoute></UserRoute>
+          </Route>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

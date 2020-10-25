@@ -3,31 +3,36 @@ import "./Card.css";
 import PropTypes from "prop-types";
 import { FooterSocial } from "./FooterSocial/FooterSocial";
 import { Link, useHistory } from "react-router-dom";
+import { Card as CardBootstrap } from "react-bootstrap";
 
-export const Card = ({ name, id, children }) => {
+export const Card = ({ name, id, img, children }) => {
   const history = useHistory();
   const url = `/user2/${id}`;
 
   return (
-    <div className="card">
+    <CardBootstrap>
       <div className="float-btn">boton flotante</div>
-      <div className="card-header">
+
+      <CardBootstrap.Img variant="top" src={img} />
+
+      <CardBootstrap.Header>
         <Link to={url}>
-          <h1>{name}</h1>
+          <h4>{name}</h4>
         </Link>
-      </div>
-      <div
-        className="card-body"
+      </CardBootstrap.Header>
+
+      <CardBootstrap.Body
         onClick={() => {
           window.confirm("¿Está seguro?") && history.push(url);
         }}
       >
         {children}
-      </div>
-      <div className="card-footer">
+      </CardBootstrap.Body>
+
+      <CardBootstrap.Footer>
         <FooterSocial></FooterSocial>
-      </div>
-    </div>
+      </CardBootstrap.Footer>
+    </CardBootstrap>
   );
 };
 

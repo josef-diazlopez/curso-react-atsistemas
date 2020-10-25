@@ -8,15 +8,16 @@ import {
   BEHANCE,
   TWITTER,
 } from "../../Buttons/ButtonSocial";
+import { ButtonGroup } from "react-bootstrap";
 
 export const FooterSocial = () => {
   const lista = [FACEBOOK, LINKEDIN, BEHANCE, TWITTER];
   return (
-    <div className="socialIcon">
+    <ButtonGroup>
       {lista.map((network) => (
         <ButtonSocial icon={network} key={network}></ButtonSocial>
       ))}
-    </div>
+    </ButtonGroup>
   );
 };
 
