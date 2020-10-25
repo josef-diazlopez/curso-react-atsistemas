@@ -9,11 +9,11 @@ export const Users = (props) => {
     const users = useGetUsers()
     return (
         <header className="App-header">
-            <Switch>
+            {/*<Switch>
                 <Route path="/user2/:id">
                     <UserRoute />
                 </Route>
-            </Switch>
+            </Switch>*/}
             {users.map((user) => (
                 <Card
                     name={`${user.first_name} ${user.last_name}`}

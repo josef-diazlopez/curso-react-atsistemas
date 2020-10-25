@@ -15,11 +15,11 @@ export const Card = (props) => {
             <div className="float-btn"></div>
             <div className="card-header">
                 <h1 onClick={() => getUser()}>{props.name}</h1>
-                {props.id && (
+                {/*props.id && (
                     <Link to={`${/user/}` + props.id}>
                         <h5>with JSX</h5>
                     </Link>
-                )}
+                )*/}
             </div>
             <div className="card-body">{props.children}</div>
             <div className="card-footer">

@@ -1,8 +1,8 @@
 .card {
-    background-color: aqua;
+    background-color: cornflowerblue;
     padding: 20px 50px;
     border-radius: 5rem;
-    margin: 5%;
+    margin: 5% 5% 0% 5%;
 }
 
 .card-footer {
