@@ -5,6 +5,7 @@ import { UserRoute } from "./pages/User";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { FourOFour } from "./pages/FourOFour";
 import { FormRoute } from "./pages/Form";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
