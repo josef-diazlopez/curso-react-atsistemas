@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Card } from "./../components/Card/Card";
 import { Body } from "./../components/Card/Body/Body";
 import { useGetUsers } from "../hooks/users/useGetUsers";
-import { Switch, Route, Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import { UserRoute } from "./User";
 
 export const Users = () => {

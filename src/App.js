@@ -13,10 +13,6 @@ function App() {
       {/* <User></User> */}
       <Router>
         <Switch>
-          <Route path="/">
-            <Users></Users>
-          </Route>
-
           <Route path="/user/alta">
             <FormRoute></FormRoute>
           </Route>
@@ -27,6 +23,10 @@ function App() {
 
           <Route path="/user/:id">
             <UserRoute></UserRoute>
+          </Route>
+
+          <Route path="/">
+            <Users></Users>
           </Route>
 
           <Route>
