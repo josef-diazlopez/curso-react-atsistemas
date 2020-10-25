@@ -3,14 +3,28 @@ import PropTypes from "prop-types";
 import { Card } from "./../components/Card/Card";
 import { Body } from "./../components/Card/Body/Body";
 import { useGetUsers } from "../hooks/users/useGetUsers";
+import { Switch, Route, Link } from "react-router-dom";
+import { UserRoute } from "./User";
 
-export const Users = ({}) => {
+export const Users = () => {
   const data = useGetUsers();
 
   return (
     <header className="App-header">
+      <Switch>
+        <Route path="/user2/:id">
+          <UserRoute></UserRoute>
+        </Route>
+      </Switch>
+
+      <Link to="/user/alta">Alta</Link>
+
       {data.map((user) => (
-        <Card name={`${user.first_name} ${user.last_name}`} key={user.id}>
+        <Card
+          name={`${user.first_name} ${user.last_name}`}
+          id={user.id}
+          key={user.id}
+        >
           <Body texts={[user.email]}></Body>
         </Card>
       ))}

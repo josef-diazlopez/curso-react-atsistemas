@@ -1,7 +1,7 @@
-import React, { Component, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from "react";
+// import PropTypes from "prop-types";
 import axios from "axios";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 const API_USERS = "https://reqres.in/api/users/";
 
@@ -14,13 +14,15 @@ export class User extends Component {
   }
 
   render() {
-    const data = this.state.data?.data;
-    const ad = this.state.data?.ad;
+    const data = this.state?.data?.data;
+    const ad = this.state?.data?.ad;
 
     return (
       <>
+        <Link to={`/user/editar/${data?.id}`}>Editar</Link>
+
         <div>
-          <img src={data?.avatar}></img>
+          <img src={data?.avatar} alt="Avatar"></img>
           <p>{data?.id}</p>
           <p>{data?.email}</p>
           <p>{`${data?.first_name} ${data?.last_name}`}</p>
@@ -36,7 +38,7 @@ export class User extends Component {
         <div>
           <button
             onClick={() => {
-              this.setState({ data: { id: data.id + 1 } });
+              this.setState({ data: { id: data?.id + 1 } });
             }}
 
             // onClick={() => {

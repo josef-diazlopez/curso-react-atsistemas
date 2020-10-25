@@ -4,6 +4,7 @@ import { Users } from "./pages/Users";
 import { UserRoute } from "./pages/User";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { FourOFour } from "./pages/FourOFour";
+import { FormRoute } from "./pages/Form";
 
 function App() {
   return (
@@ -12,12 +13,24 @@ function App() {
       {/* <User></User> */}
       <Router>
         <Switch>
-          <Route path="/user/:id">
+          <Route exact path="/">
+            <Users></Users>
+          </Route>
+
+          <Route path="/user/alta">
+            <FormRoute></FormRoute>
+          </Route>
+
+          <Route path="/user/editar/:id">
+            <FormRoute></FormRoute>
+          </Route>
+
+          <Route path="/user2/:id">
             <UserRoute></UserRoute>
           </Route>
 
-          <Route exact path="/">
-            <Users></Users>
+          <Route path="/user/:id">
+            <UserRoute></UserRoute>
           </Route>
 
           <Route>
