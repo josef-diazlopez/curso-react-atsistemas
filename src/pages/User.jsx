@@ -17,6 +17,9 @@ export class User extends Component {
     const data = this.state?.data?.data;
     const ad = this.state?.data?.ad;
 
+    const previousId = data?.id - 1;
+    const nextId = data?.id + 1;
+
     return (
       <>
         <Link to={`/user/editar/${data?.id}`}>Editar</Link>
@@ -38,7 +41,15 @@ export class User extends Component {
         <div>
           <button
             onClick={() => {
-              this.setState({ data: { id: data?.id + 1 } });
+              this.setState({ data: { id: previousId } });
+            }}
+            disabled={previousId < 1}
+          >
+            Usuario anterior
+          </button>
+          <button
+            onClick={() => {
+              this.setState({ data: { id: nextId } });
             }}
 
             // onClick={() => {
