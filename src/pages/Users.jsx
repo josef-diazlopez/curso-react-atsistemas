@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from './../components/Card/Card';
 import { Body } from './../components/Card/Body/Body';
@@ -10,13 +10,17 @@ import {
     Route,
     Link
   } from "react-router-dom";
+import { themeContext, withTheme } from '../theme/Theme';
+import { connect } from 'react-redux';
 
-export const Users = ({  }) => {
+export const Users = ({ theme, ...props }) => {
+
+    // const theme = useContext(themeContext);
 
     const data = useGetUsers();
 
     return (
-        <header className="App-header">
+        <header className="App-header" style={{ backgroundColor: (theme.isDark) ? 'black' : 'white' }}>
         <Switch>
             <Route path="/user2/:id">
                 <UserRouter/>
@@ -43,5 +47,12 @@ Users.defaultProps = {
 
 }
 
+export const UsersWithTheme = withTheme(Users);
 
+const mapStateToProps = (state /*, ownProps*/) => {
+    return{
+        counter: state.counter
+    }
+}
 
+export const UserConnected = connect(mapStateToProps)(UsersWithTheme);

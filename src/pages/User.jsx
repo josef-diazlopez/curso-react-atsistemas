@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { withRouter } from 'react-router';
+import { themeContext } from '../theme/Theme';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { increment } from '../actions/counter/counter'
 
 const API_USER = 'https://reqres.in/api/users/';
 
@@ -20,19 +24,28 @@ export class User extends Component {
         };
     }
 
+    increment = () => {
+        // this.dispatch({ type: '@COUNTER/INCREMENT' });
+        this.increment(2);
+    }
+
     render() {
         // this.forceUpdate(); forzar que se actualize
+
         return (
             // <div onClick={() => { this.setState({ dato: 3 }) }}>user</div>
             <>
+                <div className={this.context.dark ? "dark-color" : null} > </div>
                 <div>Id: {this.state.id}</div>
                 <div>Email: {this.state.email}</div>
                 <div>Name: {this.state.name}</div>
                 <div>
                     <img src={this.state.avatar} />
                 </div>
+                <div onClick={this.increment}>+1</div>
+                <div>Contador: {this.props.counter.count}</div>
                 <div >
-                    <button onClick={() => this.setState((state, pros) => ({id: state.id+1}))}>
+                    <button onClick={() => this.setState((state, pros) => ({ id: state.id + 1 }))}>
                         Next
                     </button>
                 </div>
@@ -44,7 +57,7 @@ export class User extends Component {
 
     componentDidMount() {
         this.getUsers(this.props.match.params.id);
-        
+
     }
 
     /**
@@ -81,4 +94,20 @@ export class User extends Component {
     }
 }
 
-export const UserRouter =  withRouter(User);
+User.contextType = themeContext;
+
+export const UsersWithTheme = withTheme(User);
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators(
+        {
+            increment,
+        },
+        dispatch
+    );
+}
+
+export const UserConnected = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(UsersWithTheme);
