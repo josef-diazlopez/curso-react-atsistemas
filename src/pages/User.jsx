@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import PropTypes from "prop-types";
 import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
+import { themeContext } from "../Theme/Theme";
 
 const API_USERS = "https://reqres.in/api/users/";
 
@@ -14,6 +15,8 @@ export class User extends Component {
   }
 
   render() {
+    const darkTheme = this.context?.dark;
+
     const data = this.state?.data?.data;
     const ad = this.state?.data?.ad;
 
@@ -21,7 +24,7 @@ export class User extends Component {
     const nextId = data?.id + 1;
 
     return (
-      <>
+      <div className={darkTheme ? "dark-theme" : "light-theme"}>
         <Link to={`/user/editar/${data?.id}`}>Editar</Link>
 
         <div>
@@ -61,7 +64,7 @@ export class User extends Component {
             Siguiente usuario
           </button>
         </div>
-      </>
+      </div>
     );
   }
 
@@ -94,3 +97,5 @@ export class User extends Component {
 }
 
 export const UserRoute = withRouter(User);
+
+User.contextType = themeContext;
