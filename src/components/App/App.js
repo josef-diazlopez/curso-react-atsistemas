@@ -10,9 +10,9 @@ import './App.css'
 import '@trendmicro/react-sidenav/dist/react-sidenav.css'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { FiUsers } from 'react-icons/fi'
-import { Users } from './pages/Users'
-import { UserRoute } from './pages/User'
-import ErrorPage from './pages/ErrorPage'
+import { Users } from '../../pages/Users'
+import { UserRoute } from '../../pages/User'
+import ErrorPage from '../../pages/ErrorPage'
 
 function App() {
     return (

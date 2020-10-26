@@ -6,7 +6,7 @@ import {
     LINKEDIN,
     BEHANCE,
     TWITTER,
-} from '../../Buttons/ButtonSocial'
+} from '../../Buttons/ButtonSocial/ButtonSocial'
 
 export const FooterSocial = () => {
     const lista = [FACEBOOK, LINKEDIN, BEHANCE, TWITTER]
