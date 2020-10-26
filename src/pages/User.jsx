@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router"; 
+import { themeContext } from '../Theme/Theme'
 
 class User extends React.Component {
   constructor(props) {
-    console.log(props);
     super(props);
     this.state = {
       user: {},
@@ -14,7 +14,7 @@ class User extends React.Component {
   }
   render() {
     return (
-      <div ref={this.listUser}>
+      <div ref={this.listUser} style={{'background-color': this.context.dark ? 'black' : 'white'}}>
         <button
        //   onClick={() => this.setState((state,props) => ({selectedId: state.selectedId + 1}))}
         >
@@ -61,4 +61,5 @@ class User extends React.Component {
   }
 }
 
+User.contextType = themeContext;
 export const UserRouter = withRouter(User)
