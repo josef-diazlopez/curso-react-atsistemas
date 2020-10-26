@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Card } from './../components/Card/Card'
 import Body from './../components/Card/Body/Body'
 import useGetUsers from '../hooks/useGetUsers'
@@ -9,15 +9,28 @@ import {
     updateUser,
     deleteUser,
 } from '../services/User/userServices'
+import { withTheme } from '../theme/theme'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { UserRoute } from './User'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { increment } from '../actions/counter/counter'
 
-export const Users = (props) => {
+export const Users = ({ theme, ...props }) => {
     const users = useGetUsers()
+    // console.log('context', theme)
+    console.log('props', props)
+
+    const incrementar = () => {
+        // props.dispatch({ type: '@COUNTER/INCREMENT', payload: 2 })
+        props.increment(1)
+    }
+
     const handleUsers = (action, id) => {
         switch (action) {
             case 'create':
                 createUser().then((resp) => {
+                    incrementar() // Redux
                     console.log('respCreate', resp)
                     users.createUser({
                         id: resp.id,
@@ -54,13 +67,15 @@ export const Users = (props) => {
                 break
         }
     }
+    const { counter } = props
     return (
-        <header className="App-header">
+        <header className={theme?.dark ? 'darkMode' : 'App-header'}>
             {/*<Switch>
                 <Route path="/user2/:id">
                     <UserRoute />
                 </Route>
             </Switch>*/}
+            <h1>{counter.counter.count}</h1>
             <Button action="create" createUser={(e) => handleUsers(e)}>
                 <IoMdAddCircle />
             </Button>
@@ -79,3 +94,26 @@ export const Users = (props) => {
         </header>
     )
 }
+
+//Users.contextType = themeContext
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        counter: state,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators(
+        {
+            increment,
+        },
+        dispatch
+    )
+}
+
+export const UseConnected = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withTheme(Users))
+export const UsersWithTheme = withTheme(UseConnected)

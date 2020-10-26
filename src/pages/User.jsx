@@ -6,6 +6,7 @@ import { withRouter } from 'react-router'
 import { getUser } from '../services/User/userServices'
 import Loader from 'react-loader-spinner'
 
+import { connect } from 'react-redux'
 export class User extends React.Component {
     constructor(props) {
         super(props)
@@ -36,8 +37,11 @@ export class User extends React.Component {
     }
     render() {
         const { user, ad } = this.state
+        const { counter } = this.props
+        console.log('proprop', this.props)
         return (
             <header className="App-header">
+                <h1>{counter.counter.count}</h1>
                 {!!user && !!ad && (
                     <Loader
                         type="Puff"
@@ -69,4 +73,11 @@ export class User extends React.Component {
     }
 }
 
-export const UserRoute = withRouter(User)
+const mapStateToProps = (state, ownProps) => {
+    return {
+        counter: state,
+    }
+}
+
+export const UseConnected = connect(mapStateToProps)(User)
+export const UserRoute = withRouter(UseConnected)
