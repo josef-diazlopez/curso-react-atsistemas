@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
 import { themeContext } from "../Theme/Theme";
+import { connect } from "react-redux";
 
 const API_USERS = "https://reqres.in/api/users/";
 
@@ -15,6 +16,8 @@ export class User extends Component {
   }
 
   render() {
+    console.log("props ", this.props);
+
     const darkTheme = this.context?.dark;
 
     const data = this.state?.data?.data;
@@ -99,3 +102,5 @@ export class User extends Component {
 export const UserRoute = withRouter(User);
 
 User.contextType = themeContext;
+
+export const UserRedux = connect()(UserRoute);

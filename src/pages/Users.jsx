@@ -6,8 +6,11 @@ import { useGetUsers } from "../hooks/users/useGetUsers";
 import { Route, Link } from "react-router-dom";
 import { UserRoute } from "./User";
 import { themeContext, withTheme } from "../Theme/Theme";
+import { connect } from "react-redux";
 
-export const Users = ({ theme }) => {
+export const Users = ({ theme, ...props }) => {
+  console.log(props);
+
   const data = useGetUsers();
 
   // const context = useContext(themeContext);
@@ -42,4 +45,10 @@ Users.propTypes = {};
 
 Users.defaultProps = {};
 
-export const UsersThemable = withTheme(Users);
+const mapStateToProps = (state /*, ownProps*/) => {
+  return { counter: state };
+};
+
+export const userConnectted = connect(mapStateToProps)(Users);
+
+export const UsersThemable = withTheme(userConnectted);

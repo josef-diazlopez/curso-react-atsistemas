@@ -1,0 +1,4 @@
+const MODULE_ID = "COUNTER/";
+
+export const INCREMENT = `${MODULE_ID}INCREMENT`;
+export const DECREMENT = `${MODULE_ID}DECREMENT`;
