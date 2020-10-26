@@ -4,10 +4,31 @@ import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
 import { themeContext } from "../Theme/Theme";
 import { connect } from "react-redux";
+import {
+  DECREMENT,
+  INCREMENT,
+  increment,
+  decrement,
+} from "../actions/counter/counter";
+import { bindActionCreators } from "redux";
 
 const API_USERS = "https://reqres.in/api/users/";
 
 export class User extends Component {
+  static mapStateToProps = (state /*, ownProps*/) => {
+    return { counter: state.counter };
+  };
+
+  static mapDispatchToProps = (dispatch, ownProps) => {
+    return bindActionCreators(
+      {
+        increment,
+        decrement,
+      },
+      dispatch
+    );
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -26,8 +47,24 @@ export class User extends Component {
     const previousId = data?.id - 1;
     const nextId = data?.id + 1;
 
+    const num = 2;
+
+    const sum = () => {
+      this.props.increment(num);
+    };
+
+    const rest = () => {
+      this.props.decrement(num);
+    };
+
     return (
       <div className={darkTheme ? "dark-theme" : "light-theme"}>
+        <div>
+          <button onClick={rest}>-{num}</button>
+          <span> {this.props?.counter?.count} </span>
+          <button onClick={sum}>+{num}</button>
+        </div>
+
         <Link to={`/user/editar/${data?.id}`}>Editar</Link>
 
         <div>
@@ -103,4 +140,7 @@ export const UserRoute = withRouter(User);
 
 User.contextType = themeContext;
 
-export const UserRedux = connect()(UserRoute);
+export const UserRedux = connect(
+  User.mapStateToProps,
+  User.mapDispatchToProps
+)(UserRoute);
