@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { withRouter } from "react-router";
+import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux'
+import { themeContext, ThemeProvider, ThemeConsumer } from '../Themee/Theme'
+import {increment } from '../actions/counter/counter'
 
 const API_USER = 'https://reqres.in/api/users/';
 
@@ -23,14 +27,12 @@ constructor(props){
     }
 }
 render(){
-    console.log(this.props);
-    console.log(this.props.match.params.id);
-   
+   console.log(this.props);
     return (
-    <>
+    <div className={this.context.dark ? "dark-color" : null}>
     <div onClick={()=>this.setState((state,props)=>({dato: this.state.user.id+1}))} >{this.state.user.id}</div>
     <div>{this.state.user.email}</div>
-    </>
+    </div>
     )
 }
 
@@ -58,6 +60,25 @@ componentDidMount(){
 
 }
 
+//se usa el selector se vera mañana
+const mapStateToProps = (state) =>{
+    return {
+        counter: state.counter
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps)=>{
+   return bindActionCreators(
+        {
+            increment,
+        },
+        dispatch
+    )
+}
+
+export const UserRoute = withRouter(User);
+export const  UserRedux = connect(mapStateToProps ,mapDispatchToProps)(UserRoute);
+
 User.propTypes = {
 
 }
@@ -66,6 +87,5 @@ User.defaultProps = {
 
 }
 
+User.contextType = themeContext;
 
-const UserRouter = withRouter(User);
-export default UserRouter;

@@ -7,30 +7,39 @@ import {
   Link
 } from "react-router-dom";
 import {FourFour} from "./pages/FourFour.jsx";
-import { Users } from "./pages/Users";
-import UserRoute from './pages/User'
+import { UsersRedux } from "./pages/Users";
+import {UserRedux} from './pages/User';
+import {ThemeSelector, themeSelector} from './components/ThemeSelector/ThemeSelector';
+import { Provider } from 'react-redux'
+import {createStore} from './store/store'
+//import { createStore } from "redux";
 
+const PageRouter = () => {
+return(
+  <div className="App">
+   <Router>
+   <Switch>
+     <Route exact path="/">
+    <UsersRedux/>
+     </Route>
+     <Route exact path="/user/:id" >
+    <UserRedux/>
+     </Route>
+     <Route>
+       <FourFour/>
+     </Route>
+   </Switch>
+   </Router>
+  </div>
+)}
 
 function App() {
   return (
-    <div className="App">
-     { /*<Users></Users>
-     <User/>
-     */ }
-     <Router>
-     <Switch>
-       <Route exact path="/">
-      <Users/>
-       </Route>
-       <Route exact path="/user/:id" >
-      <UserRoute/>
-       </Route>
-       <Route>
-         <FourFour/>
-       </Route>
-     </Switch>
-     </Router>
-    </div>
+  <Provider store={createStore()}>
+       <ThemeSelector>
+   <PageRouter></PageRouter>
+   </ThemeSelector>
+   </Provider>
   );
 }
 
