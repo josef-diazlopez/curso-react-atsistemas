@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect } from 'react'
 import { Card } from './../components/Card/Card'
 import Body from './../components/Card/Body/Body'
 import useGetUsers from '../hooks/useGetUsers'
@@ -10,27 +10,24 @@ import {
     deleteUser,
 } from '../services/User/userServices'
 import { withTheme } from '../theme/theme'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { UserRoute } from './User'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { increment } from '../actions/counter/counter'
+import { decrement, increment, setCount } from '../actions/counter/counter'
 
 export const Users = ({ theme, ...props }) => {
     const users = useGetUsers()
-    // console.log('context', theme)
-    console.log('props', props)
 
-    const incrementar = () => {
-        // props.dispatch({ type: '@COUNTER/INCREMENT', payload: 2 })
-        props.increment(1)
-    }
+    const { setCount, counter } = props
+    const numUsers = users.data.length
+
+    useEffect(() => {
+        setCount(numUsers)
+    }, [numUsers])
 
     const handleUsers = (action, id) => {
         switch (action) {
             case 'create':
                 createUser().then((resp) => {
-                    incrementar() // Redux
                     console.log('respCreate', resp)
                     users.createUser({
                         id: resp.id,
@@ -67,7 +64,6 @@ export const Users = ({ theme, ...props }) => {
                 break
         }
     }
-    const { counter } = props
     return (
         <header className={theme?.dark ? 'darkMode' : 'App-header'}>
             {/*<Switch>
@@ -75,8 +71,12 @@ export const Users = ({ theme, ...props }) => {
                     <UserRoute />
                 </Route>
             </Switch>*/}
-            <h1>{counter.counter.count}</h1>
-            <Button action="create" createUser={(e) => handleUsers(e)}>
+            <h1>Num of Users: {counter.counter.count}</h1>
+            <Button
+                name="Create user"
+                action="create"
+                createUser={(e) => handleUsers(e)}
+            >
                 <IoMdAddCircle />
             </Button>
             {users &&
@@ -107,6 +107,8 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(
         {
             increment,
+            decrement,
+            setCount,
         },
         dispatch
     )

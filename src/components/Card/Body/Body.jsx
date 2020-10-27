@@ -2,7 +2,7 @@ import React from 'react'
 import './Body.css'
 import PropTypes from 'prop-types'
 
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 
 const handleModal = (id, history) => {

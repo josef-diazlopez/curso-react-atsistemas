@@ -1,4 +1,4 @@
-import { DECREMENT, INCREMENT } from '../../actions/counter/counter'
+import { DECREMENT, INCREMENT, SET_COUNT } from '../../actions/counter/counter'
 import { createReducer } from '../utils'
 
 const initialState = {
@@ -8,6 +8,7 @@ const initialState = {
 export default createReducer(initialState, {
     [DECREMENT]: decrement,
     [INCREMENT]: increment,
+    [SET_COUNT]: setCount,
 })
 
 function decrement(state, action) {
@@ -22,4 +23,8 @@ function increment(state, action) {
         ...state,
         count: state.count + action.payload || 1,
     }
+}
+
+function setCount(state, action) {
+    return { count: action.payload || state.count }
 }

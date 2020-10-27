@@ -1,10 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Card } from './../components/Card/Card'
 import Body from './../components/Card/Body/Body'
 import { withRouter } from 'react-router'
 import { getUser } from '../services/User/userServices'
 import Loader from 'react-loader-spinner'
+import { withTheme } from '../theme/theme'
 
 import { connect } from 'react-redux'
 export class User extends React.Component {
@@ -37,10 +37,9 @@ export class User extends React.Component {
     }
     render() {
         const { user, ad } = this.state
-        const { counter } = this.props
-        console.log('proprop', this.props)
+        const { counter, theme } = this.props
         return (
-            <header className="App-header">
+            <header className={theme?.dark ? 'darkMode' : 'App-header'}>
                 <h1>{counter.counter.count}</h1>
                 {!!user && !!ad && (
                     <Loader
@@ -79,5 +78,5 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export const UseConnected = connect(mapStateToProps)(User)
+export const UseConnected = connect(mapStateToProps)(withTheme(User))
 export const UserRoute = withRouter(UseConnected)

@@ -1,17 +1,13 @@
 import React from 'react'
 import './Card.css'
 import PropTypes from 'prop-types'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { Button } from '../Buttons/Button/Button'
 import { FooterSocial } from './FooterSocial/FooterSocial'
 import { AiFillDelete } from 'react-icons/ai'
-import { BsFillPersonFill } from 'react-icons/bs'
-import {
-    createUser,
-    updateUser,
-    deleteUser,
-} from '../../services/User/userServices'
+import { FaSyncAlt } from 'react-icons/fa'
+import { updateUser, deleteUser } from '../../services/User/userServices'
 
 export const Card = (props) => {
     const history = useHistory()
@@ -38,11 +34,6 @@ export const Card = (props) => {
         <div className="card">
             <div className="card-header">
                 <h1 onClick={() => getUser()}>{props.name}</h1>
-                {/*props.id && (
-                    <Link to={`${/user/}` + props.id}>
-                        <h5>with JSX</h5>
-                    </Link>
-                )*/}
             </div>
             <div className="card-body">{props.children}</div>
             <div className="card-footer">
@@ -50,7 +41,7 @@ export const Card = (props) => {
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Button action="update" updateUser={(e) => handleUser(e)}>
-                    <BsFillPersonFill />
+                    <FaSyncAlt />
                 </Button>
                 <Button action="delete" deleteUser={(e) => handleUser(e)}>
                     <AiFillDelete />
