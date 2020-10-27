@@ -2,6 +2,7 @@
 import React, { Component, useState, useEffect } from "react";
 import axios from 'axios';
 import { withRouter } from "react-router";
+import { themeContext } from "../Theme/Theme";
 
 const API_USER = 'https://reqres.in/api/users/';
 
@@ -50,9 +51,10 @@ export class User extends Component {
     }
 
     render() {
-        console.log(this.props)
+        console.log(this.context);
+        //console.log(this.props)
         return (
-            <>
+            <div style={{ 'backgroundColor': this.context.dark ? 'black' : 'white' }}>
                 <div onClick={() => { this.setState({ id: this.state.id + 1 }) }}>{this.state.id}</div>
                 <div>{this.state.email}</div>
                 <div>{this.state.name}</div>
@@ -60,10 +62,10 @@ export class User extends Component {
                 <div>{this.state.company}</div>
                 <div>{this.state.url}</div>
                 <div onClick={this.goBack}><b>Ir atrás</b></div>
-            </>
+            </div>
         );
 
     }
 }
-
+User.contextType = themeContext;
 export const UserRoute = withRouter(User);

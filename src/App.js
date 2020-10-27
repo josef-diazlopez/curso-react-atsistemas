@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Users } from './pages/Users';
+import { Users, UsersThemable, UsersWithTheme } from './pages/Users';
 import { UserRoute } from './pages/User';
 import {
   BrowserRouter as Router,
@@ -9,27 +9,31 @@ import {
   Link
 } from "react-router-dom";
 import { Four0four } from './pages/Four0four';
+import { ThemeSelector } from './components/ThemeSelector/ThemeSelector';
+
 
 
 function App() {
   return (
-    <div className="App">
-      {/*<Users></Users>*/}
-      {/* <User></User>*/}
-      <Router>
-        <Switch>
-          <Route path="/" exact>
-            <Users />
-          </Route>
-          <Route path="/user/:id" exact>
-            <UserRoute />
-          </Route>
-          <Route >
-            <Four0four />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
+    <ThemeSelector>
+      <div className="App">
+        {/*<Users></Users>*/}
+        {/* <User></User>*/}
+        <Router>
+          <Switch>
+            <Route path="/" exact>
+              <UsersWithTheme />
+            </Route>
+            <Route path="/user/:id" exact>
+              <UserRoute />
+            </Route>
+            <Route >
+              <Four0four />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    </ThemeSelector>
   );
 }
 
