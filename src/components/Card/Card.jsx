@@ -1,33 +1,67 @@
-import React from "react";
-import "./Card.css";
-import PropTypes from "prop-types";
-import { FooterSocial } from "./FooterSocial/FooterSocial";
+import React from 'react'
+import './Card.css'
+import PropTypes from 'prop-types'
+import { withRouter, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { Button } from '../Buttons/Button/Button'
+import { FooterSocial } from './FooterSocial/FooterSocial'
+import { AiFillDelete } from 'react-icons/ai'
+import { BsFillPersonFill } from 'react-icons/bs'
 import {
-  Link, useHistory
-} from "react-router-dom";
+    createUser,
+    updateUser,
+    deleteUser,
+} from '../../services/User/userServices'
 
-export const Card = ({ name, children, idUser}) => {
-  const history = useHistory()
-  return (
-    <div className="card">
-      <div className="float-btn">boton flotante</div>
-      <div className="card-header">
-        <Link to={`user/${idUser}`}>
-        <h1>{name}</h1>
-        </Link>
-      </div>
-      <div className="card-body" onClick={() => {
-          if(window.confirm('¿Quiere navegar al detalle del usuario?')){
-            history.push(`user/${idUser}`)}
-        }}
-        >{children}</div>
-      <div className="card-footer">
-        <FooterSocial></FooterSocial>
-      </div>
-    </div>
-  );
-};
+export const Card = (props) => {
+    const history = useHistory()
+    const getUser = () => {
+        history.push('/user/' + props.id)
+    }
+    const handleUser = (action) => {
+        switch (action) {
+            case 'update':
+                updateUser(props.id).then((resp) => {
+                    props.updateUserList('update', props.id)
+                })
+                break
+            case 'delete':
+                deleteUser(props.id).then((resp) => {
+                    props.updateUserList('delete', props.id)
+                })
+                break
+            default:
+                break
+        }
+    }
+    return (
+        <div className="card">
+            <div className="card-header">
+                <h1 onClick={() => getUser()}>{props.name}</h1>
+                {/*props.id && (
+                    <Link to={`${/user/}` + props.id}>
+                        <h5>with JSX</h5>
+                    </Link>
+                )*/}
+            </div>
+            <div className="card-body">{props.children}</div>
+            <div className="card-footer">
+                <FooterSocial></FooterSocial>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button action="update" updateUser={(e) => handleUser(e)}>
+                    <BsFillPersonFill />
+                </Button>
+                <Button action="delete" deleteUser={(e) => handleUser(e)}>
+                    <AiFillDelete />
+                </Button>
+            </div>
+        </div>
+    )
+}
 
 Card.propTypes = {
-  name: PropTypes.string.isRequired,
-};
+    name: PropTypes.string.isRequired,
+}
+
+export default withRouter(Card)

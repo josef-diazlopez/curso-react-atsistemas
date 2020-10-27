@@ -1,29 +1,24 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react'
+import { ThemeProvider, themeContext } from '../../theme/theme'
 
-import { ThemeProvider } from '../../Theme/Theme';
-
-export const ThemeSelector = ({children}) => {
-
-  const [isDark, setDark] = useState({dark: true})
-  
-
-  const handleCheckbox = () => {
-    setDark({dark:!isDark.dark});
-  }
-
-  return (
-    <>
-    <input
-      id="theme"
-      type="checkbox"
-      name="theme"
-      checked={isDark.dark}
-      onChange={handleCheckbox}
-    />
-    <label for="theme">Cambiar modo</label>
-    <ThemeProvider value={{dark: isDark.dark}}>{children}</ThemeProvider>
-    </>
-  )
-
+export const ThemeSelector = (props) => {
+    const [isDark, setDark] = useState(false)
+    const handleCheckbox = () => {
+        setDark(!isDark)
+    }
+    return (
+        <>
+            <input
+                id="theme"
+                type="checkbox"
+                name="theme"
+                style={{ margin: '15%' }}
+                checked={isDark}
+                onChange={handleCheckbox}
+            />
+            <ThemeProvider value={{ dark: !isDark }}>
+                {props.children}
+            </ThemeProvider>
+        </>
+    )
 }

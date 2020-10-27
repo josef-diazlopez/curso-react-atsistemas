@@ -1,65 +1,83 @@
-import React from "react";
-import axios from "axios";
-import { withRouter } from "react-router"; 
-import { themeContext } from '../Theme/Theme'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Card } from './../components/Card/Card'
+import Body from './../components/Card/Body/Body'
+import { withRouter } from 'react-router'
+import { getUser } from '../services/User/userServices'
+import Loader from 'react-loader-spinner'
 
-class User extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {},
-      selectedId: undefined
-    };
-    this.listUser = React.createRef()
-  }
-  render() {
-    return (
-      <div ref={this.listUser} style={{'background-color': this.context.dark ? 'black' : 'white'}}>
-        <button
-       //   onClick={() => this.setState((state,props) => ({selectedId: state.selectedId + 1}))}
-        >
-          {this.state?.user?.id}
-        </button>
-        <p>Nombre: {this.state?.user?.first_name}</p>
-        <p>Apellido: {this.state?.user?.last_name}</p>
-        <p onClick={() => {
-          if(window.confirm('¿Quiere navegar al detalle del usuario?')){
-            this.props.history.push(`/`)}
-        }}
-        >Email: {this.state?.user?.email}</p>
-        <img
-          alt={`img ${this.state?.user?.first_name}`}
-          src={this.state?.user?.avatar}
-        ></img>
-      </div>
-    );
-  }
-
-  getUser() {
-    axios
-      .get(`https://reqres.in/api/users/${this.state.selectedId}`)
-      .then((response) => {
-        const responseData = response?.data;
-        console.log(responseData);
-        this.setState({
-          user : {...responseData.data, ...response.data.ad}
-        })
-  })
-}
-
-  componentDidMount() {
-    this.setState((state, props) => ({
-      selectedId: this.props.match?.params?.id || 1
-    }))
-    this.getUser();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if(prevState.selectedId !== this.state.selectedId) {
-      this.getUser();
+import { connect } from 'react-redux'
+export class User extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            user: {},
+            ad: {},
+            id: props.match.params.id || 0,
+        }
+        this.listUser = React.createRef()
     }
-  }
+
+    componentDidMount() {
+        this.getUser()
+        // this.listUser.current
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.id !== this.state.id) {
+            this.getUser()
+        }
+    }
+    getUser = () => {
+        getUser(this.state.id).then((resp) => {
+            this.setState({
+                user: resp.user,
+                ad: resp.ad,
+            })
+        })
+    }
+    render() {
+        const { user, ad } = this.state
+        const { counter } = this.props
+        console.log('proprop', this.props)
+        return (
+            <header className="App-header">
+                <h1>{counter.counter.count}</h1>
+                {!!user && !!ad && (
+                    <Loader
+                        type="Puff"
+                        color="#00BFFF"
+                        height={100}
+                        width={100}
+                        timeout={1000}
+                    />
+                )}
+                {user !== null && ad !== null && (
+                    <Card
+                        name={`${user.first_name} ${user.last_name}`}
+                        key={user.id}
+                    >
+                        <img
+                            src={user.avatar}
+                            width={150}
+                            height={150}
+                            alt="img"
+                        />
+                        <h4>{`${ad.company}`}</h4>
+                        <h5>{`${ad.text}`}</h5>
+                        <h6>{`${ad.url}`}</h6>
+                        <Body texts={[user.email]}></Body>
+                    </Card>
+                )}
+            </header>
+        )
+    }
 }
 
-User.contextType = themeContext;
-export const UserRouter = withRouter(User)
+const mapStateToProps = (state, ownProps) => {
+    return {
+        counter: state,
+    }
+}
+
+export const UseConnected = connect(mapStateToProps)(User)
+export const UserRoute = withRouter(UseConnected)
