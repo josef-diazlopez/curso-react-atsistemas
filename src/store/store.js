@@ -1,5 +1,3 @@
-/** Almacén donde se van a guardar todos los datos globales de la aplicación */
-
 import { createStore as createStoreRedux } from 'redux'
 import { reducers } from '../reducers/reducers'
 

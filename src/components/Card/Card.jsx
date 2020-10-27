@@ -18,12 +18,18 @@ export const Card = (props) => {
         switch (action) {
             case 'update':
                 updateUser(props.id).then((resp) => {
-                    props.updateUserList('update', props.id)
+                    props.handleUsers({
+                        action: 'update',
+                        id: props.id,
+                    })
                 })
                 break
             case 'delete':
                 deleteUser(props.id).then((resp) => {
-                    props.updateUserList('delete', props.id)
+                    props.handleUsers({
+                        action: 'delete',
+                        id: props.id,
+                    })
                 })
                 break
             default:

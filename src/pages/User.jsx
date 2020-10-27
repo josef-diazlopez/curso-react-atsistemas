@@ -20,7 +20,6 @@ export class User extends React.Component {
 
     componentDidMount() {
         this.getUser()
-        // this.listUser.current
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevState.id !== this.state.id) {
