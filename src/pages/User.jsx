@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { withRouter } from "react-router";
+import { ThemeContext } from "../Theme/Theme";
+import { connect } from "react-redux";
 
 const API_USER_URL = "https://reqres.in/api/users/";
 
@@ -29,8 +31,10 @@ class User extends React.Component {
     });
   }
   render() {
+    let context = this.context;
+    console.log(this.props);
     return (
-      <div>
+      <div style={{ backgroundColor: context.dark ? "grey" : "white" }}>
         <div
           onClick={() => this.setState({ selectedId: ++this.state.selectedId })}
         >
@@ -62,4 +66,6 @@ const getUserByData = (userData) => {
 };
 
 export default User;
-export const UserRoute = withRouter(User);
+export const UserRoute = connect()(withRouter(User));
+User.contextType = ThemeContext;
+
