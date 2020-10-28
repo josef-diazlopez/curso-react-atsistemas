@@ -2,10 +2,18 @@ import React from "react";
 import "./Card.css";
 import PropTypes from "prop-types";
 import { FooterSocial } from "./FooterSocial/FooterSocial";
+import { Link, useHistory } from "react-router-dom";
 
-export const Card = ({ name, children }) => {
+const handleModal = (history, id) => {
+  if(window.confirm('Acceder a página de usuario?')){
+    history.push(`user/${id}`);
+  }
+}
+
+export const Card = ({ id, name, children }) => {
+  const history = useHistory();
   return (
-    <div className="card">
+    <div className="card" onClick={() => handleModal(history, id)}>
       <div className="float-btn">boton flotante</div>
       <div className="card-header">
         <h1>{name}</h1>
