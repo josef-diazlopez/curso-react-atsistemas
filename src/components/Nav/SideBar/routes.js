@@ -1,6 +1,6 @@
 import React from 'react'
-import { Users } from '../../pages/Users'
-import { User } from '../../pages/User'
+import { Users } from '../../../pages/Users'
+import { User } from '../../../pages/User'
 
 const routes = {
     '/': () => <Users />,

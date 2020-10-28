@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { getUsers } from '../services/User/userServices'
+import { setCount } from '../actions/counter/counter'
 
 const useGetUsers = () => {
     const [data, setData] = useState([])

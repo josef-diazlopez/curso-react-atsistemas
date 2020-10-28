@@ -18,7 +18,7 @@ export const decrement = (value = 1) => {
     }
 }
 
-export const setCount = (value = 1) => {
+export const setCount = (value = 0) => {
     return {
         type: SET_COUNT,
         payload: value,

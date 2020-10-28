@@ -1,33 +1,44 @@
 import React from 'react'
-import { Card } from './../../components/Card/Card'
-import Body from './../../components/Card/Body/Body'
-import { Button } from '../../components/Buttons/Button/Button'
+import { Card } from '../Card/Card'
+import Body from '../Card/Body/Body'
+import { Button } from '../Buttons/Button/Button'
 import { IoMdAddCircle } from 'react-icons/io'
+import { Title } from '../Title/Title'
+import Loader from 'react-loader-spinner'
+
+export const CardUser = (props) => {
+    const { user, ad } = props
+    return (
+        <>
+            {user !== null && ad !== null && (
+                <Card
+                    name={`${user.first_name} ${user.last_name}`}
+                    key={user.id}
+                >
+                    <img src={user.avatar} width={150} height={150} alt="img" />
+                    <h4>{`${ad.company}`}</h4>
+                    <h5>{`${ad.text}`}</h5>
+                    <h6>{`${ad.url}`}</h6>
+                    <Body texts={[user.email]}></Body>
+                </Card>
+            )}
+        </>
+    )
+}
 
 export const UserPresenter = (props) => {
-    const { counter, handleUsers, theme, users } = props
+    const { counter, theme } = props
     return (
         <header className={theme?.dark ? 'darkMode' : 'App-header'}>
-            <h1>Num of Users: {counter.counter.count}</h1>
-            <Button
-                name="Create user"
-                action="create"
-                createUser={(e) => handleUsers({ ...props, e })}
-            >
-                <IoMdAddCircle />
-            </Button>
-            {users &&
-                users.data &&
-                users.data.map((user) => (
-                    <Card
-                        name={`${user.first_name} ${user.last_name}`}
-                        key={user.id}
-                        id={user.id}
-                        handleUsers={(e) => handleUsers({ ...props, e })}
-                    >
-                        <Body id={user.id} texts={[user.email]}></Body>
-                    </Card>
-                ))}
+            <Title title={`Num of Users: ${counter.counter.count}`}></Title>
+            <Loader
+                type="Puff"
+                color="#00BFFF"
+                height={100}
+                width={100}
+                timeout={1000}
+            />
+            <CardUser {...props} />
         </header>
     )
 }

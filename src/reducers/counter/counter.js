@@ -26,5 +26,6 @@ function increment(state, action) {
 }
 
 function setCount(state, action) {
+    console.log('state.count', state)
     return { count: action.payload || state.count }
 }

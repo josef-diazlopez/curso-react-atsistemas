@@ -11,7 +11,7 @@ import {
 export const FooterSocial = () => {
     const lista = [FACEBOOK, LINKEDIN, BEHANCE, TWITTER]
     return (
-        <div className="socialIcon">
+        <div className="card-footer socialIcon">
             {lista.map((network) => (
                 <ButtonSocial icon={network} key={network}></ButtonSocial>
             ))}

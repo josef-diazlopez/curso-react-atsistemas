@@ -7,9 +7,15 @@ import {
 export const handleUsers = (props) => {
     const { createUser, updateUser, deleteUser } =
         props && props.e && props.e.users
-    let { action, id } = props && props.e && props.e.e
-    if (id === undefined) {
-        action = props && props.e && props.e.e
+    let { action, id } =
+        (props && props.e && props.e.e) ||
+        (props && props.e && props.e.e && props.e.e.obj)
+    if (props && props.e && props.e.e && props.e.e.obj) {
+        action = props.e.e.obj.action
+    } else {
+        action =
+            (props && props.e && props.e.e) ||
+            (props && props.e && props.e.e && props.e.e.obj.action)
     }
     switch (action) {
         case 'create':
@@ -35,10 +41,10 @@ export const handleUsers = (props) => {
                         'https://s3.amazonaws.com/uifaces/faces/twitter/follettkyle/128.jpg',
                 })
             })
-
             break
         case 'delete':
             deleteService(props.id).then(() => deleteUser(id))
+            break
         default:
             break
     }

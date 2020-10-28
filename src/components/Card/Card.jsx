@@ -3,56 +3,28 @@ import './Card.css'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
-import { Button } from '../Buttons/Button/Button'
+import { Header } from './Header/Header'
 import { FooterSocial } from './FooterSocial/FooterSocial'
-import { AiFillDelete } from 'react-icons/ai'
-import { FaSyncAlt } from 'react-icons/fa'
-import { updateUser, deleteUser } from '../../services/User/userServices'
+import { ButtonsCRUD } from '../Buttons/ButtonsCRUD/ButtonsCRUD'
 
 export const Card = (props) => {
+    const { handleUsers, isList } = props
     const history = useHistory()
-    const getUser = () => {
-        history.push('/user/' + props.id)
-    }
-    const handleUser = (action) => {
-        switch (action) {
-            case 'update':
-                updateUser(props.id).then((resp) => {
-                    props.handleUsers({
-                        action: 'update',
-                        id: props.id,
-                    })
-                })
-                break
-            case 'delete':
-                deleteUser(props.id).then((resp) => {
-                    props.handleUsers({
-                        action: 'delete',
-                        id: props.id,
-                    })
-                })
-                break
-            default:
-                break
-        }
-    }
+    const getUser = () => history.push('/user/' + props.id)
     return (
         <div className="card">
-            <div className="card-header">
-                <h1 onClick={() => getUser()}>{props.name}</h1>
-            </div>
-            <div className="card-body">{props.children}</div>
-            <div className="card-footer">
-                <FooterSocial></FooterSocial>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button action="update" updateUser={(e) => handleUser(e)}>
-                    <FaSyncAlt />
-                </Button>
-                <Button action="delete" deleteUser={(e) => handleUser(e)}>
-                    <AiFillDelete />
-                </Button>
-            </div>
+            <Header title={props.name} getUser={() => getUser()} />
+            {props.children}
+            {!isList && <FooterSocial></FooterSocial>}
+            {isList && (
+                <ButtonsCRUD
+                    {...props}
+                    handleUser={(e) => {
+                        const obj = { action: e, id: props.id }
+                        handleUsers({ ...props, obj })
+                    }}
+                />
+            )}
         </div>
     )
 }

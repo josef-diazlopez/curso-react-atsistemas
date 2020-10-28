@@ -2,26 +2,34 @@ import React, { useState } from 'react'
 import '@trendmicro/react-sidenav/dist/react-sidenav.css'
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav'
 import { Route, Switch } from 'react-router-dom'
-import { UserRoute } from '../../pages/User'
-import ErrorPage from '../../pages/ErrorPage'
-import { UsersWithTheme } from '../../pages/Users'
+import { UserRoute } from '../../../pages/User'
+import ErrorPage from '../../../pages/ErrorPage'
+import { UsersWithTheme } from '../../../pages/Users'
 import { FiUsers } from 'react-icons/fi'
-import { BsMoon, BsSun } from 'react-icons/bs'
-import { ThemeProvider } from '../../theme/theme'
+import { ThemeProvider } from '../../../theme/theme'
+import { NavBar } from '../NavBar/NavBar'
+import { makeStyles } from '@material-ui/core/styles'
 
-export const MainNav = (props) => {
+const useStyles = makeStyles((theme) => ({
+    style: {
+        background: 'cornflowerblue',
+        position: 'fixed',
+    },
+    darkStyle: {
+        background: '#282c34',
+        position: 'fixed',
+    },
+}))
+
+export const SideBar = (props) => {
     const [isDark, setDark] = useState(false)
-    const handleMode = () => {
-        setDark(!isDark)
-    }
+    const handleMode = (e) => setDark(e)
+    const classes = useStyles()
     return (
         <>
             <ThemeProvider value={{ dark: !isDark }}>
                 <SideNav
-                    style={{
-                        background: 'cornflowerblue',
-                        position: 'fixed',
-                    }}
+                    className={isDark ? classes.darkStyle : classes.style}
                     onSelect={(selected) => {
                         const to = selected
                         if (props.location.pathname !== to) {
@@ -37,16 +45,9 @@ export const MainNav = (props) => {
                             </NavIcon>
                             <NavText>Users</NavText>
                         </NavItem>
-                        <NavItem onClick={handleMode}>
-                            <NavIcon>{isDark ? <BsMoon /> : <BsSun />}</NavIcon>
-                            <NavText>
-                                {isDark
-                                    ? 'Change to Light Mode'
-                                    : 'Change to Dark Mode'}
-                            </NavText>
-                        </NavItem>
                     </SideNav.Nav>
                 </SideNav>
+                <NavBar {...props} setDark={(e) => handleMode(e)} />
                 <Switch>
                     <Route
                         exact
@@ -61,4 +62,4 @@ export const MainNav = (props) => {
     )
 }
 
-export default MainNav
+export default SideBar

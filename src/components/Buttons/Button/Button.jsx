@@ -21,7 +21,6 @@ export const Button = (props) => {
         <div className="button">
             <div onClick={() => clickButton(props.action)}>
                 {props.children}
-                <div>{props.name}</div>
             </div>
         </div>
     )

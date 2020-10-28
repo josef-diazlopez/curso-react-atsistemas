@@ -1,10 +1,12 @@
 import React from 'react'
 import './App.css'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-
-import MainNav from '../MainNav/MainNav'
+import SideBar from '../Nav/SideBar/SideBar'
 import { Provider } from 'react-redux'
 import { createStore } from '../../store/store'
+import { setCount } from '../../actions/counter/counter'
+import { reducers } from '../../reducers/reducers'
+import { createReducer } from '../../reducers/utils'
 
 const PageRouter = () => {
     return (
@@ -12,7 +14,7 @@ const PageRouter = () => {
             <Route
                 render={({ location, history }) => (
                     <div className="App">
-                        <MainNav location={location} history={history} />
+                        <SideBar location={location} history={history} />
                     </div>
                 )}
             />
