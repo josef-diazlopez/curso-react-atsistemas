@@ -8,14 +8,13 @@ import { UsersPresenter } from '../components/User/UsersPresenter'
 import { handleUsers } from '../functions/User/user'
 
 export const Users = (props) => {
-    const users = useGetUsers()
-    let numUsers = users.data.length
     const { setCount } = props
+    const users = useGetUsers()
+    const numUsers = users.data.length
     useEffect(() => {
         setCount(numUsers)
-    }, [numUsers]) // eslint-disable-line react-hooks/exhaustive-deps
+    }, [numUsers, setCount])
 
-    // console.log('users', users)
     return (
         <UsersPresenter
             {...props}

@@ -37,14 +37,16 @@ const useStyles = makeStyles((theme) => ({
 
 export const NavBar = (props) => {
     const [isDark, setDark] = useState(true)
+    const [shouldRefresh, setShouldRefresh] = useState(false)
     const handleMode = () => {
         setDark(!isDark)
         props.setDark(isDark)
     }
     const classes = useStyles()
+    console.log('propi', props)
     return (
         <div className={classes.root}>
-            <ThemeProvider value={{ dark: !isDark }}>
+            <ThemeProvider value={{ dark: !isDark, reload: shouldRefresh }}>
                 <AppBar
                     position="static"
                     className={!isDark ? classes.darkStyle : classes.style}

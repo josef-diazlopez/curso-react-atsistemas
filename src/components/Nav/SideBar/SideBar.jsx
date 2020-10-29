@@ -23,11 +23,12 @@ const useStyles = makeStyles((theme) => ({
 
 export const SideBar = (props) => {
     const [isDark, setDark] = useState(false)
+    const [shouldRefresh, setShouldRefresh] = useState(false)
     const handleMode = (e) => setDark(e)
     const classes = useStyles()
     return (
         <>
-            <ThemeProvider value={{ dark: !isDark }}>
+            <ThemeProvider value={{ dark: !isDark, reload: shouldRefresh }}>
                 <SideNav
                     className={isDark ? classes.darkStyle : classes.style}
                     onSelect={(selected) => {

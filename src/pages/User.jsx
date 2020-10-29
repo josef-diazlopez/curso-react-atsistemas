@@ -1,8 +1,6 @@
 import React from 'react'
-import { Card } from './../components/Card/Card'
-import Body from './../components/Card/Body/Body'
 import { withRouter } from 'react-router'
-import { getUser } from '../services/User/userServices'
+import { getUser as retrievingUsers } from '../services/User/userServices'
 import { withTheme } from '../theme/theme'
 
 import { connect } from 'react-redux'
@@ -27,7 +25,7 @@ export class User extends React.Component {
         }
     }
     getUser = () => {
-        getUser(this.state.id).then((resp) => {
+        retrievingUsers(this.state.id).then((resp) => {
             this.setState({
                 user: resp.user,
                 ad: resp.ad,
@@ -36,17 +34,7 @@ export class User extends React.Component {
     }
     render() {
         const { user, ad } = this.state
-        return (
-            <>
-                {!!user && !!ad && (
-                    <UserPresenter
-                        {...this.props}
-                        user={this.state.user}
-                        ad={this.state.ad}
-                    />
-                )}
-            </>
-        )
+        return <UserPresenter {...this.props} user={user} ad={ad} />
     }
 }
 

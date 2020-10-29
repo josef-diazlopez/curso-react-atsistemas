@@ -26,6 +26,8 @@ function increment(state, action) {
 }
 
 function setCount(state, action) {
-    console.log('state.count', state)
-    return { count: action.payload || state.count }
+    return {
+        count:
+            typeof action.payload === 'number' ? action.payload : state.count,
+    }
 }

@@ -1,8 +1,6 @@
 import React from 'react'
 import { Card } from '../Card/Card'
 import Body from '../Card/Body/Body'
-import { Button } from '../Buttons/Button/Button'
-import { IoMdAddCircle } from 'react-icons/io'
 import { Title } from '../Title/Title'
 import Loader from 'react-loader-spinner'
 
