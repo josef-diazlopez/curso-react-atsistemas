@@ -1,5 +1,5 @@
 import { spawn, takeEvery, put } from 'redux-saga/effects';
-import { INIT } from '../../actions/flow';
+import { INIT, INIT_HOME } from '../../actions/flow';
 
 export default function* oneClickSaga() {
   yield spawn(watchInitOneClick);
@@ -11,8 +11,7 @@ function* watchInitOneClick() {
 
 function* init() {
   try {
-    // yield keycloack.authenticated ? put({ type: INIT_ONE_CLICK, payload: {} }): undefined;
-    // yield put({ type: INIT_ONE_CLICK, payload: action.payload });
+     yield put({ type: INIT_HOME, payload: {}});
   } catch (e) {
     console.error(e);
   }

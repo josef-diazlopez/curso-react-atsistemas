@@ -1,3 +1,4 @@
 import init from "./init";
+import home from "./home";
 
-export default [{ ...init }];
+export default [{ ...init }, { ...home }];
