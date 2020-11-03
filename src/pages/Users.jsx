@@ -1,43 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Card } from './../components/Card/Card';
-import { Body } from './../components/Card/Body/Body';
-import axios from 'axios';
+import React, { useEffect } from 'react'
+import useGetUsers from '../hooks/useGetUsers'
+import { withTheme } from '../theme/theme'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { decrement, increment, setCount } from '../actions/counter/counter'
+import { UsersPresenter } from '../components/User/UsersPresenter'
+import { handleUsers } from '../functions/User/user'
 
-const API_USERS = 'https://reqres.in/api/users';
-
-export const Users = ({  }) => {
-    const [data, setData] = useState([]);
+export const Users = (props) => {
+    const { setCount } = props
+    const users = useGetUsers()
+    const numUsers = users.data.length
     useEffect(() => {
-        axios.get(API_USERS)
-            .then((response) => {
-                setData(response.data.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            })
-    },[])
+        setCount(numUsers)
+    }, [numUsers, setCount])
+
     return (
-        <header className="App-header">
+        <UsersPresenter
+            {...props}
+            users={users}
+            handleUsers={(e) => handleUsers({ ...props, e })}
+        />
+    )
+}
+const mapStateToProps = (state) => {
+    return {
+        counter: state,
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators(
         {
-            data.map((user) => (
-                <Card name={`${user.first_name} ${user.last_name}`} key={user.id}>
-                    <Body texts={[user.email]}></Body>
-                </Card>
-            ))
-        }
-
-      </header>
-    );
-};
-
-Users.propTypes = {
-
+            increment,
+            decrement,
+            setCount,
+        },
+        dispatch
+    )
 }
 
-Users.defaultProps = {
-
-}
-
-
-
+export const UseConnected = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withTheme(Users))
+export const UsersWithTheme = withTheme(UseConnected)

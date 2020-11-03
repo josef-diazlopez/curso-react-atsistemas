@@ -1,36 +1,36 @@
 import React from 'react'
-import './Card.css'
+import './List.css'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { Header } from './Header/Header'
-import { FooterSocial } from './FooterSocial/FooterSocial'
 import { ButtonsCRUD } from '../Buttons/ButtonsCRUD/ButtonsCRUD'
 
-export const Card = (props) => {
+export const List = (props) => {
     const { handleUsers, isList } = props
     const history = useHistory()
     const getUser = () => history.push('/user/' + props.id)
     return (
-        <div className="card">
-            <Header title={props.name} getUser={() => getUser()} />
-            {props.children}
-            {!isList && <FooterSocial></FooterSocial>}
-            {isList && (
+        <div className="list">
+            <div style={{ width: '50%' }}>
+                <Header title={props.name} getUser={() => getUser()} />
+            </div>
+            <div style={{ width: '50%' }}>
                 <ButtonsCRUD
                     {...props}
+                    isList={isList}
                     handleUser={(e) => {
                         const obj = { action: e, id: props.id }
                         handleUsers({ ...props, obj })
                     }}
                 />
-            )}
+            </div>
         </div>
     )
 }
 
-Card.propTypes = {
+List.propTypes = {
     name: PropTypes.string.isRequired,
 }
 
-export default withRouter(Card)
+export default withRouter(List)
